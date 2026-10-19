@@ -16,7 +16,7 @@ def check_numpy_compatibility():
             click.echo("", err=True)
             click.echo("🔧 Quick fix:", err=True)
             click.echo("   pip install 'numpy>=1.24,<2.0'", err=True)
-            click.echo("   pip install --upgrade cued-speech", err=True)
+            click.echo("   pip install --upgrade cued-speech-fr", err=True)
             click.echo("", err=True)
             click.echo("📖 For more details, see: https://github.com/bouba-sow/cuedspeech", err=True)
             return False

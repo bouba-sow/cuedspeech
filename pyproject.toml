@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cued_speech"
+name = "cued-speech-fr"
 version = "0.5.0"
 description = "Cued Speech Processing Tools - Decode and Generate cued speech videos"
 readme = "README.md"

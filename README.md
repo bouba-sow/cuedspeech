@@ -12,7 +12,7 @@ Montreal Forced Aligner).
 mkdir cued-speech-env && cd cued-speech-env
 pixi init
 pixi add "python==3.11" montreal-forced-aligner=3.3.4
-pixi run python -m pip install cued-speech
+pixi run python -m pip install cued-speech-fr
 pixi shell
 ```
 
