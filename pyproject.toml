@@ -42,7 +42,6 @@ dependencies = [
     "flashlight-text>=0.0.7",
     "kenlm>=0.3.0",
     "praatio>=6.2.0,<7",
-    "moviepy==1.0.3",
     "imageio-ffmpeg>=0.4.9",
     "requests",
     "montreal-forced-aligner>=3.2.1",

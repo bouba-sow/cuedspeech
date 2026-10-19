@@ -127,14 +127,24 @@ class CuedSpeechGenerator:
     # ------------------------------------------------------------------
 
     def _extract_audio(self, video_path: str, temp_dir: str) -> str:
-        """Extract audio from video file."""
-        from moviepy.editor import VideoFileClip
+        """Extract the audio track as WAV, on the same timeline as the video.
+
+        Phone recordings often have gaps or a late start in their audio
+        timestamps; ``aresample=async`` fills them with silence so the audio
+        stays in sync with the frames (for the alignment and the output).
+        """
+        import imageio_ffmpeg
 
         audio_path = os.path.join(temp_dir, "audio.wav")
-        with VideoFileClip(video_path) as video:
-            if video.audio is None:
+        result = subprocess.run([
+            imageio_ffmpeg.get_ffmpeg_exe(), "-y", "-loglevel", "error", "-i", video_path,
+            "-map", "0:a:0", "-vn", "-af", "aresample=async=1:first_pts=0",
+            "-c:a", "pcm_s16le", audio_path,
+        ], capture_output=True, text=True)
+        if result.returncode != 0:
+            if "matches no streams" in result.stderr:
                 raise ValueError(f"Video has no audio track: {video_path}")
-            video.audio.write_audiofile(audio_path, codec="pcm_s16le", logger=None)
+            raise RuntimeError(f"Audio extraction failed: {result.stderr[-2000:]}")
         return audio_path
 
     def _transcribe_audio(self, audio_path: str) -> str:
