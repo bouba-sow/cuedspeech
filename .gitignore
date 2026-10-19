@@ -1,0 +1,41 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# Data files (downloaded automatically)
+download/
+*.zip
+*.tar.gz
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated outputs and editor history
+output/
+.history/
+
+# Third-party AGPL reference material (not redistributed)
+AutoCS-2.0-dist/
+
+# Anchor check image written by `python -m cued_speech.hand_assets`
+src/cued_speech/data/handshapes/handshapes_preview.png

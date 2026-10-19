@@ -1,0 +1,101 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cued_speech"
+version = "0.5.0"
+description = "Cued Speech Processing Tools - Decode and Generate cued speech videos"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "Boubacar Sow", email = "boubasow.pro@gmail.com"}
+]
+maintainers = [
+    {name = "Boubacar Sow", email = "boubasow.pro@gmail.com"}
+]
+keywords = ["cued-speech", "accessibility", "speech-recognition", "video-processing", "mediapipe", "whisper"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "click",
+    "numpy>=1.24,<2.0",
+    "pandas>=1.5.0,<2.1",
+    "mediapipe>=0.10.14",
+    "opencv-python>=4.8.0,<4.13",
+    "torch==2.2.2",
+    "torchvision>=0.17.2",
+    "absl-py>=2.3.1",
+    "openai-whisper>=20250625",
+    "torchaudio==2.2.2",
+    "flashlight-text>=0.0.7",
+    "kenlm>=0.3.0",
+    "praatio>=6.2.0,<7",
+    "moviepy==1.0.3",
+    "imageio-ffmpeg>=0.4.9",
+    "requests",
+    "montreal-forced-aligner>=3.2.1",
+    "tflite-runtime>=2.14.0,<3"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "pytest>=8.4.1",
+    "mypy>=1.17.1",
+    "flake8>=7.3.0"
+]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme"
+]
+
+[project.urls]
+Homepage = "https://github.com/bouba-sow/cuedspeech"
+Documentation = "https://github.com/bouba-sow/cuedspeech/blob/main/README.md"
+Repository = "https://github.com/bouba-sow/cuedspeech"
+"Bug Tracker" = "https://github.com/bouba-sow/cuedspeech/issues"
+
+[project.scripts]
+cued-speech = "cued_speech.cli:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cued_speech"]
+exclude = ["src/cued_speech/data/handshapes/handshapes_preview.png"]
+# Metadata 2.5 is not yet understood by every twine/packaging release.
+core-metadata-version = "2.4"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+]
+exclude = ["/src/cued_speech/data/handshapes/handshapes_preview.png"]
+core-metadata-version = "2.4"
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.pypi-dependencies]
+cued_speech = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+dev = { features = ["dev"], solve-group = "default" }
+docs = { features = ["docs"], solve-group = "default" }
+
+[tool.pixi.tasks]
